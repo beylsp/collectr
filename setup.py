@@ -6,5 +6,10 @@ except ImportError:
     from distutils.core import setup
 
 setup(
-    name='collectr'
+    name='collectr',
+    version='1.0',
+    packages=['collectr'],
+    include_package_data=True,
+    zip_safe=False,
+    install_requires=['Flask']
 )
