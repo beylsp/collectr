@@ -9,8 +9,6 @@ env:
     - TOXENV=py26
     - TOXENV=pypy
     - TOXENV=flake8
-    # configuration: Production, Development or Testing
-    - CONFIG=Testing
 
 # command to run tests
 script:
