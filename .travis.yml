@@ -1,17 +1,25 @@
+# Config file for automatic testing at travis-ci.org
+
 language: python
 
-python:
-    - "2.7"
-    - "3.4"
-    - "3.5"
-    - "pypy"
+env:
+    - TOXENV=py35
+    - TOXENV=py34
+    - TOXENV=py33
+    - TOXENV=py27
+    - TOXENV=py26
+    - TOXENV=pypy
+    - TOXENV=flake8
+    # configuration: Production, Development or Testing
+    - CONFIG=Testing
 
 # command to run tests
-script: nosetests -v
+script:
+    - tox -e $TOXENV
+
+install: 
+    - pip install tox
 
 notifications:
     slack: beylsp:ksj5Wk4lvPhMvo7Iy1UYdALL
 
-env:
-# configuration: Production, Development or Testing
-- CONFIG=Testing
