@@ -5,6 +5,7 @@
 #    pip-compile test-requirements.in
 #
 blinker==1.4
+coverage==4.0.3
 ecdsa==0.13               # via paramiko
 fabric==1.10.2
 flake8==2.5.0
