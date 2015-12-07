@@ -5,6 +5,7 @@
 #    pip-compile test-requirements.in
 #
 blinker==1.4
+codacy-coverage==1.2.2
 coverage==4.0.3
 ecdsa==0.13               # via paramiko
 fabric==1.10.2
@@ -22,6 +23,7 @@ pluggy==0.3.1             # via tox
 py==1.4.31                # via tox
 pycrypto==2.6.1           # via paramiko
 pyflakes==1.0.0           # via flake8
+requests==2.8.1           # via codacy-coverage
 tox==2.2.1
 virtualenv==13.1.2        # via tox
 werkzeug==0.11.2          # via flask

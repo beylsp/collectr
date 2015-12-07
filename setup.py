@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
-install_requires = ['Flask']
+requirements = ['Flask']
+
+test_requirements = []
 
 try:
     from setuptools import setup
@@ -11,7 +13,7 @@ try:
     # only available from py27
     import importlib  # noqa
 except ImportError:
-    install_requires.append('importlib')
+    requirements.append('importlib')
 
 setup(
     name='collectr',
@@ -19,5 +21,7 @@ setup(
     packages=['collectr'],
     include_package_data=True,
     zip_safe=False,
-    install_requires=install_requires
+    install_requires=requirements,
+    test_suite='tests',
+    tests_require=test_requirements
 )
