@@ -36,7 +36,7 @@ clean-test:
 	rm -fr htmlcov/
 
 lint:
-	flake8 -v --max-complexity 10 collectr tests
+	flake8 -v --max-complexity 10 *.py collectr tests
 
 test:
 	python setup.py test
