@@ -1,12 +1,14 @@
 from flask import Flask
 from opbeat.contrib.flask import Opbeat
+from config import config
 
-app = Flask(__name__)
-opbeat = Opbeat(
-    app,
-    organization_id='c6b1b6f06dab409db01224faa85c9887',
-    app_id='209b15af04',
-    secret_token='b5b3969552cbaf97b75e94014bff7108d8c0be6b'
-)
+opbeat = Opbeat()
+
+
+def create_app(config_name):
+    app = Flask(__name__)
+    app.config.from_object(config[config_name])
+    opbeat.init_app(app)
+    return app
 
 from collectr import views  # noqa
