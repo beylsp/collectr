@@ -1,7 +1,8 @@
 #!/usr/bin/env python
+"""Management script."""
+import os
 from flask.ext.script import Manager
 from collectr import create_app
-import os
 
 if os.path.exists('.env'):
     for line in open('.env'):
