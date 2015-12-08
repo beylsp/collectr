@@ -11,5 +11,3 @@ def create_app(config_name):
     if not app.testing:
         opbeat.init_app(app)
     return app
-
-from collectr import views  # noqa
