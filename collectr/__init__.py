@@ -1,7 +1,7 @@
 from flask import Flask
 from opbeat.contrib.flask import Opbeat
 from config import config
-from views.products import products
+from collectr.views.products import products
 
 opbeat = Opbeat()
 
