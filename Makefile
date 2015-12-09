@@ -1,13 +1,15 @@
 .PHONY: clean-pyc clean-build clean-test docs clean
 
 help:
-	@echo "clean - remove all build, test, coverage and Python artifacts"
+	@echo "clean - remove all build, test, coverage, doc and Python artifacts"
 	@echo "clean-build - remove build artifacts"
-	@echo "clean-pyc - remove Python file artifacts"
 	@echo "clean-test - remove test and coverage artifacts"
+	@echo "clean-doc - remove documentation artifacts"
+	@echo "clean-pyc - remove Python file artifacts"
 	@echo "lint - check style with flake8"
 	@echo "test - run tests quickly with the default Python"
 	@echo "test-all - run tests on every Python version with tox"
+	@echo "test-doc - run Sphinx documentation integrity check"
 	@echo "coverage-html - check code coverage quickly with the default Python"
 	@echo "coverage-codacy - check code coverage and upload to codacy"
 	@echo "docs - generate Sphinx HTML documentation, including API docs"
@@ -15,7 +17,7 @@ help:
 	@echo "dist - package"
 	@echo "install - install the package to the active Python's site-packages"
 
-clean: clean-build clean-pyc clean-test
+clean: clean-build clean-pyc clean-test clean-doc
 
 clean-build:
 	rm -fr build/
@@ -36,11 +38,19 @@ clean-test:
 	rm -f coverage.xml
 	rm -fr htmlcov/
 
+clean-doc:
+	$(MAKE) -C docs clean
+	rm -rf docs/collectr*.rst
+	rm -rf docs/modules.rst
+
 lint:
-	flake8 -v --max-complexity 10 *.py collectr tests
+	flake8 -v --max-complexity 10 *.py collectr docs tests
 
 test:
 	python setup.py test
+
+test-doc:
+	sphinx-build -b html -d docs/_build/doctrees docs docs/_build/html
 
 test-all:
 	tox
@@ -57,8 +67,8 @@ coverage-codacy: coverage
 	python-codacy-coverage -r coverage.xml
 
 docs:
-	rm -rf docs/collectr.rst
+	rm -rf docs/collectr*.rst
 	rm -rf docs/modules.rst
-	sphinx-apidoc -o docs/ collectr
+	sphinx-apidoc -o docs collectr
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html

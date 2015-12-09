@@ -9,6 +9,7 @@ env:
     - TOXENV=py26
     - TOXENV=pypy
     - TOXENV=flake8
+    - TOXENV=doc
 
 # command to run tests
 script:

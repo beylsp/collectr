@@ -61,6 +61,8 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+docs/collectr*.rst
+docs/modules.rst
 
 # PyBuilder
 target/

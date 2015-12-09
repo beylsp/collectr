@@ -4,15 +4,24 @@
 #
 #    pip-compile dev-requirements.in
 #
+alabaster==0.7.6          # via sphinx
+babel==2.1.1              # via sphinx
 blinker==1.4
+docutils==0.12            # via sphinx
 ecdsa==0.13               # via paramiko
 fabric==1.10.2
 flask-script==2.0.5
 flask==0.10.1
 itsdangerous==0.24        # via flask
-jinja2==2.8               # via flask
+jinja2==2.8               # via flask, sphinx
 markupsafe==0.23          # via jinja2
 opbeat==3.1.3
 paramiko==1.16.0          # via fabric
 pycrypto==2.6.1           # via paramiko
+pygments==2.0.2           # via sphinx
+pytz==2015.7              # via babel
+six==1.10.0               # via sphinx
+snowballstemmer==1.2.0    # via sphinx
+sphinx-rtd-theme==0.1.9   # via sphinx
+sphinx==1.3.3
 werkzeug==0.11.2          # via flask

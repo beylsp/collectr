@@ -1,3 +1,4 @@
 -r requirements.in
 Opbeat
 Blinker
+Sphinx
