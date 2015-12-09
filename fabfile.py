@@ -1,9 +1,11 @@
+"""Command-line tool to streamline application deployment."""
 from fabric.api import runs_once, lcd, local, task
 
 
 @task
 @runs_once
 def register_deployment(git_path):
+    """Register and deploy to Opbeat."""
     with(lcd(git_path)):
         revision = local('git log -n 1 --pretty="format:%H"', capture=True)
         branch = local('git rev-parse --abbrev-ref HEAD', capture=True)
