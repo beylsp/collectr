@@ -55,3 +55,10 @@ coverage-html: coverage
 coverage-codacy: coverage
 	coverage xml
 	python-codacy-coverage -r coverage.xml
+
+docs:
+	rm -rf docs/collectr.rst
+	rm -rf docs/modules.rst
+	sphinx-apidoc -o docs/ collectr
+	$(MAKE) -C docs clean
+	$(MAKE) -C docs html
