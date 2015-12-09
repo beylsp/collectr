@@ -1,4 +1,4 @@
-"""Blueprint module that associates product view functions."""
+"""Blueprint module associated to product view functions."""
 from flask import Blueprint
 
 products = Blueprint('products', __name__)

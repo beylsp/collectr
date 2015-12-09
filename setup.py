@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+"""Distutils scripts to build, distribute and install the collectr package."""
 
 requirements = ['Flask']
 
