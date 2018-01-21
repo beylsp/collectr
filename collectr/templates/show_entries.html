@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block main %}
+
+{% if qs %}
+  <p><strong>Your search '{{ qs }}' returned {{ count }} result{{ count | pluralize }}.</strong></p>
+{% else %}
+<p><strong>We found {{ count }} car model{{ count | pluralize }}.</strong></p>
+{% endif %}
+
+{% for row in entries | batch(3) %}
+<div class="row sm-5 wow">
+  {% for entry in row %}
+      <div class="col-sm-4 wow fadeIn" data-wow-delay={{ loop.index * 0.2  ~ "s" }}>
+        <div class="card">
+	{% if entry.in_collection %}
+          <div class="view">
+	{% else %}
+          <div class="view hm-black-strong">
+        {% endif %}
+            <img class="img-fluid" src="{{ entry.image_url }}" alt="{{ entry.title }}">
+            <div class="mask">
+            </div>
+          </div>
+  	  <div class="card-body">
+            <div class="row">
+              <div class="col mt-4">
+                <h4 class="card-title">{{ entry.product_id }}</h4>
+              </div>
+              {% if not entry.in_collection %}
+	      <div class="col mt-4 d-flex justify-content-end">
+	        <i class="alert-target fa fa-plus-circle fa-2x" aria-hidden="true" data-product-id="{{ entry.product_id }}"></i>
+	      </div>
+	      {% endif %}
+	    </div>
+	    <hr class="title-hr">
+	    <p class="card-text">{{ entry.title }}</p>
+          </div>
+        </div>
+      </div>
+  {% endfor %}
+</div>
+{% endfor %}
+
+{% endblock %}

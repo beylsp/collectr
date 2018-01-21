@@ -2,7 +2,7 @@
 """Management script."""
 import os
 from flask.ext.script import Manager
-from collectr import create_app
+from collectr.factory import create_app
 
 if os.path.exists('.env'):
     for line in open('.env'):
@@ -10,8 +10,7 @@ if os.path.exists('.env'):
         if len(var) == 2:
             os.environ[var[0]] = var[1]
 
-
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+app = create_app()
 manager = Manager(app)
 
 if __name__ == '__main__':
