@@ -17,7 +17,7 @@ def filter_id(value):
     if v[:2] in ('12', '18', 'SA') or \
        v[0] in ('M', 'Y') or \
        v.startswith('43MF') or \
-       v in ('S0771', 'S0776'):
+       v in ('S0771', 'S0776', 'SF037'):
         raise ValueError
     return v
 
