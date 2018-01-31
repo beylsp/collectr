@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block main %}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Product</th>
+      <th scope="col">Description</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for row in entries %}
+      <tr>
+	<th scope="row">{{ row.product_id }}</th>
+	<td>{{ row.title }}</td>
+	<td><i class="fa fa-close" style="color:red;" aria-hidden="true"></i></td>
+      <tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

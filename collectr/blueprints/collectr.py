@@ -57,6 +57,13 @@ def get_entries_for_page(page):
     return cur.fetchall()
 
 
+def get_entries_in_collection():
+    db = get_db()
+    cur = db.execute('SELECT * FROM sparkmodel '
+                     'WHERE in_collection = 1 '
+                     'ORDER BY product_id ASC ')
+    return cur.fetchall()
+
 def get_qs_result_for_page(qs, page):
     limit = current_app.config['ENTRIES_PER_PAGE']
     offset = (page - 1) * limit
@@ -104,3 +111,8 @@ def add_entry():
         db.commit()
         result = 'ok'
     return jsonify(result)
+
+@bp.route('/profile')
+def view_profile():
+    entries = get_entries_in_collection()
+    return render_template('show_profile.html', entries=entries)
