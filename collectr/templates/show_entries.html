@@ -28,7 +28,8 @@
               </div>
               {% if not entry.in_collection %}
 	      <div class="col mt-4 d-flex justify-content-end">
-	        <i class="alert-target fa fa-plus-circle fa-2x" aria-hidden="true" data-product-id="{{ entry.product_id }}"></i>
+	        <i class="alert-target fa fa-plus-circle fa-2x" aria-hidden="true"
+	           style="cursor:pointer;" data-product-id="{{ entry.product_id }}"></i>
 	      </div>
 	      {% endif %}
 	    </div>

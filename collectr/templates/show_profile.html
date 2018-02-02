@@ -14,10 +14,45 @@
       <tr>
 	<th scope="row">{{ row.product_id }}</th>
 	<td>{{ row.title }}</td>
-	<td><i class="fa fa-close" style="color:red;" aria-hidden="true"></i></td>
+	<td>
+	  <a href="#confirmDelete" data-toggle="modal" data-target="#modalConfirmDelete" data-product-id="{{ row.product_id }}">
+	    <i class="fa fa-close" style="color:rgb(255, 75, 75); cursor:pointer;" aria-hidden="true"></i>
+	  </a>
+	</td>
       <tr>
     {% endfor %}
   </tbody>
 </table>
+
+<!-- Modal -->
+<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="titleConfirmDelete" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="heading">Delete model</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	  <span class="white-text" aria-hidden="true">×</span>
+	</button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <p></p>
+	    <p class="text-center">
+              <i class="fa fa-exclamation-triangle fa-4x" style="color:rgb(255, 75, 75);" aria-hidden="true"></i>
+	    </p>
+          </div>
+	  <div class="col-sm-9">
+	      <p>Are you sure you want to permanently delete the model <span id="product-id"></span>?</p>
+	  </div>
+	</div>
+      </div>
+      <div class="modal-footer justify-content-center">
+	<a type="button" class="btn btn-primary-modal" data-dismiss="modal">Cancel</a>
+	<a type="button" class="btn btn-outline-secondary-modal">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

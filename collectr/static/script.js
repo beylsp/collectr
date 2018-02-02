@@ -38,3 +38,11 @@ $(".alert-target").click(function () {
   return false;
 });
 
+
+$("#modalConfirmDelete").on('show.bs.modal', function (event) {
+  var action = $(event.relatedTarget);
+  var product_id = action.data('product-id');
+  var modal = $(this);
+  modal.find('.modal-body #product-id').text(product_id);
+});
+

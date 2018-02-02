@@ -112,6 +112,22 @@ def add_entry():
         result = 'ok'
     return jsonify(result)
 
+
+@bp.route('/delete/')
+def delete_entry():
+    product_id = request.args.get('product_id', None)
+    if not product_id:
+        result = 'error'
+    else:
+        db = get_db()
+        db.execute('UPDATE sparkmodel '
+                   'SET in_collection = ? '
+                   'WHERE product_id = ?', (False, product_id))
+        db.commit()
+        result = 'ok'
+    return jsonify(result)
+
+
 @bp.route('/profile')
 def view_profile():
     entries = get_entries_in_collection()

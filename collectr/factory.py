@@ -12,7 +12,7 @@ def create_app(config=None):
 
     app.config.update(dict(
         DATABASE=os.path.join(app.root_path, 'collectr.db'),
-        ENTRIES_PER_PAGE=30,
+        ENTRIES_PER_PAGE=60,
     ))
     app.config.update(config or {})
     app.config.from_envvar('COLLECTR_SETTINGS', silent=True)
