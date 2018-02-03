@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     {% for row in entries %}
-      <tr>
+    <tr id="{{ row.product_id }}">
 	<th scope="row">{{ row.product_id }}</th>
 	<td>{{ row.title }}</td>
 	<td>
@@ -48,8 +48,8 @@
 	</div>
       </div>
       <div class="modal-footer justify-content-center">
-	<a type="button" class="btn btn-primary-modal" data-dismiss="modal">Cancel</a>
-	<a type="button" class="btn btn-outline-secondary-modal">Delete</a>
+	<a type="button" id="modalCancelDeleteButton" class="btn btn-primary-modal waves-effect waves-light" data-dismiss="modal">Cancel</a>
+	<a type="button" id="modalConfirmDeleteButton" class="btn btn-outline-secondary-modal waves-effect" data-product-id="">Delete</a>
       </div>
     </div>
   </div>

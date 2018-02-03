@@ -21,16 +21,14 @@ $(".alert-target").click(function () {
       product_id: pid
     }, 
     success: function(response) {
-      console.log("ok");
       var toast = new Toast('success', 'toast-bottom-left', pid + ' added to collection!');
       showToast(toast);
       target.parents(".card").find(".view").removeClass("hm-black-strong");
       target.fadeOut(300, function() {
-        target.remove();
+      target.remove();
       });
     },
     error: function(reponse) {
-      console.log("error");
       var toast = new Toast('error', 'toast-bottom-left', pid + ' cannot be added to collection!');
       showToast(toast);
     }
@@ -44,5 +42,31 @@ $("#modalConfirmDelete").on('show.bs.modal', function (event) {
   var product_id = action.data('product-id');
   var modal = $(this);
   modal.find('.modal-body #product-id').text(product_id);
+  modal.find('#modalConfirmDeleteButton').attr('data-product-id', product_id);
+});
+
+$("#modalConfirmDeleteButton").click(function() {
+  var target = $(this);
+  var pid = target.data("product-id");
+  $.ajax({
+    url: "/delete",
+    type: "get",
+    data: {
+      product_id: pid
+    },
+    success: function(response) {
+      var toast = new Toast('success', 'toast-bottom-left', pid + ' deleted from collection!');
+      showToast(toast);
+      $("#" + pid).fadeOut(600, function() {
+        $("#" + pid).remove();
+      });
+    },
+    error: function(response) {
+      var toast = new Toast('error', 'toast-bottom-left', pid + ' cannot be deleted from collection!');
+      showToast(toast);
+    }
+  });
+  $("#modalConfirmDelete").modal('hide');
+  return false;
 });
 
