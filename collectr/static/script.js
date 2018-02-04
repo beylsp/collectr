@@ -45,9 +45,8 @@ $("#modalConfirmDelete").on('show.bs.modal', function (event) {
   modal.find('#modalConfirmDeleteButton').attr('data-product-id', product_id);
 });
 
-$("#modalConfirmDeleteButton").click(function() {
-  var target = $(this);
-  var pid = target.data("product-id");
+$("#modalConfirmDeleteButton").click(function(event) {
+  var pid = event.target.dataset.productId;
   $.ajax({
     url: "/delete",
     type: "get",
