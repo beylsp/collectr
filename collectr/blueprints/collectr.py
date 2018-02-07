@@ -5,7 +5,7 @@ from flask import g
 from flask import render_template
 from flask import current_app
 from flask import request
-
+from flask_paginate import Pagination
 
 bp = Blueprint('collectr', __name__)
 
@@ -81,10 +81,11 @@ def show_entries():
     count = get_total_entries()
     page = int(request.args.get('page', 1))
     entries = get_entries_for_page(page)
-#    pagination = Pagination(page=page,
-#                            total_count=count,
-#                            per_page=current_app.config['ENTRIES_PER_PAGE'])
-    return render_template('show_entries.html', entries=entries, count=count)
+    pagination = Pagination(page=page,
+                            total=count, css_framework='bootstrap4',
+                            per_page=current_app.config['ENTRIES_PER_PAGE'])
+    return render_template('show_entries.html', entries=entries,
+                           count=count, pagination=pagination)
 
 
 @bp.route('/search/')
@@ -92,7 +93,6 @@ def search():
     qs = request.args.get('query', None)
     count = get_total_entries(qs)
     page = int(request.args.get('page', 1))
-    print 'query = %s' % qs
     entries = get_qs_result_for_page(qs, page)
     return render_template('show_entries.html',
                            entries=entries, count=count, qs=qs)
