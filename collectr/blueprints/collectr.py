@@ -94,7 +94,10 @@ def search():
     count = get_total_entries(qs)
     page = int(request.args.get('page', 1))
     entries = get_qs_result_for_page(qs, page)
-    return render_template('show_entries.html',
+    pagination = Pagination(page=page,
+                            total=count, css_framework='bootstrap4',
+                            per_page=current_app.config['ENTRIES_PER_PAGE'])
+    return render_template('show_entries.html', pagination=pagination,
                            entries=entries, count=count, qs=qs)
 
 
