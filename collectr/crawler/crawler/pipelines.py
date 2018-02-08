@@ -7,29 +7,25 @@
 
 from database.models import SparkModelData
 from sqlalchemy import create_engine
+from sqlalchemy.engine.url import URL
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+import settings
 
-class SqlitePipeline(object):
-    def __init__(self, sqlite_uri, sqlite_db):
-        self.sqlite_uri = sqlite_uri
-        self.sqlite_db = sqlite_db
+
+class PgPipeline(object):
 
     @classmethod
-    def from_crawler(cls, crawler):
-        return cls(
-            sqlite_uri=crawler.settings.get('SQLITE_URI'),
-            sqlite_db=crawler.settings.get('SQLITE_DB')
-        )
+    def from_crawler(cls):
+        return cls()
 
     def open_spider(self, spider):
-        engine = create_engine(self.sqlite_uri)
+        engine = create_engine(URL(**settings.DATABASE))
         self.db = scoped_session(sessionmaker(autocommit=False,
                                               autoflush=False,
                                               bind=engine))
 
     def process_item(self, item, spider):
-        print 'process_item!'
         product_id = item['product_id'][0]
         image_url = item['image_url'][0]
         title = item['title'][0]

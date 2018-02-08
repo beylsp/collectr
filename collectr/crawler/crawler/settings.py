@@ -9,6 +9,9 @@
 #     http://doc.scrapy.org/en/latest/topics/settings.html
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
+import os
+import urlparse
+
 
 BOT_NAME = 'crawler'
 
@@ -68,7 +71,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'crawler.pipelines.SqlitePipeline': 100,
+    'crawler.pipelines.PgPipeline': 100,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -96,6 +99,15 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# Configure sqlite database
-SQLITE_URI = 'sqlite:///collectr.db'
-SQLITE_DB = 'sparkmodels'
+# Configure postgres database
+urlparse.uses_netloc.append('postgres')
+url = urlparse.urlparse(os.environ["DATABASE_URL"])
+
+DATABASE = {
+    'drivername': 'postgres',
+    'host': url.hostname,
+    'port': url.port,
+    'username': url.username,
+    'password': url.password,
+    'database': 'sparkmodels'
+}
