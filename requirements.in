@@ -1,5 +1,6 @@
 Flask
 Flask-Script
 scrapy
+six
 rq
 

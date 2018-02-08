@@ -34,7 +34,7 @@ redis==2.10.6             # via rq
 rq==0.10.0
 scrapy==1.5.0
 service-identity==17.0.0  # via scrapy
-six==1.11.0               # via automat, cryptography, parsel, pyopenssl, scrapy, six, w3lib
+six==1.11.0
 twisted==17.9.0           # via scrapy
 w3lib==1.19.0             # via parsel, scrapy
 werkzeug==0.11.2          # via flask

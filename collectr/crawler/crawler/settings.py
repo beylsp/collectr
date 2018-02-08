@@ -10,7 +10,7 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 import os
-import urlparse
+from six.moves.urllib import parse
 
 
 BOT_NAME = 'crawler'
@@ -100,8 +100,8 @@ ITEM_PIPELINES = {
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # Configure postgres database
-urlparse.uses_netloc.append('postgres')
-url = urlparse.urlparse(os.environ["DATABASE_URL"])
+parse.uses_netloc.append('postgres')
+url = parse.urlparse(os.environ["DATABASE_URL"])
 
 DATABASE = {
     'drivername': 'postgres',

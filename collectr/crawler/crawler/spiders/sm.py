@@ -1,7 +1,7 @@
 from crawler.items import SparkModelItem
 from scrapy.loader import ItemLoader
+from six.moves.urllib import parse
 import scrapy
-import urlparse
 
 
 class SparkModelSpider(scrapy.Spider):
@@ -36,8 +36,8 @@ class SparkModelSpider(scrapy.Spider):
 
     def request_next_page(self, np):
         np_link = np.xpath('@href').extract_first()
-        url = urlparse.urlparse(np_link)
-        q = urlparse.parse_qs(url.query)
+        url = parse.urlparse(np_link)
+        q = parse.parse_qs(url.query)
         page = q.get('p')[0]
         self.logger.info('yield next page: %s' % page)
         return scrapy.http.FormRequest(self.base_url,
