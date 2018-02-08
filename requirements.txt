@@ -4,16 +4,38 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
+asn1crypto==0.24.0        # via cryptography
+attrs==17.4.0             # via automat, service-identity
+automat==0.6.0            # via twisted
+cffi==1.11.4              # via cryptography
 click==6.7                # via rq
-ecdsa==0.13               # via paramiko
-fabric==1.10.2
+constantly==15.1.0        # via twisted
+cryptography==2.1.4       # via pyopenssl
+cssselect==1.0.3          # via parsel, scrapy
+enum34==1.1.6             # via cryptography, enum34
 flask-script==2.0.5
 flask==0.10.1
+hyperlink==17.3.1         # via twisted
+idna==2.6                 # via cryptography
+incremental==17.5.0       # via twisted
+ipaddress==1.0.19         # via cryptography
 itsdangerous==0.24        # via flask
 jinja2==2.8               # via flask
+lxml==4.1.1               # via parsel, scrapy
 markupsafe==0.23          # via jinja2
-paramiko==1.16.0          # via fabric
-pycrypto==2.6.1           # via paramiko
+parsel==1.4.0             # via scrapy
+pyasn1-modules==0.2.1     # via service-identity
+pyasn1==0.4.2             # via pyasn1-modules, service-identity
+pycparser==2.18           # via cffi
+pydispatcher==2.0.5       # via scrapy
+pyopenssl==17.5.0         # via scrapy, service-identity
+queuelib==1.4.2           # via scrapy
 redis==2.10.6             # via rq
 rq==0.10.0
+scrapy==1.5.0
+service-identity==17.0.0  # via scrapy
+six==1.11.0               # via automat, cryptography, parsel, pyopenssl, scrapy, six, w3lib
+twisted==17.9.0           # via scrapy
+w3lib==1.19.0             # via parsel, scrapy
 werkzeug==0.11.2          # via flask
+zope.interface==4.4.3     # via twisted
