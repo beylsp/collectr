@@ -5,3 +5,4 @@ six
 rq
 sqlalchemy
 psycopg2
+gunicorn

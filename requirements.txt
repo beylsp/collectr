@@ -15,6 +15,7 @@ cssselect==1.0.3          # via parsel, scrapy
 enum34==1.1.6             # via cryptography, enum34
 flask-script==2.0.5
 flask==0.10.1
+gunicorn==19.7.1
 hyperlink==17.3.1         # via twisted
 idna==2.6                 # via cryptography
 incremental==17.5.0       # via twisted
