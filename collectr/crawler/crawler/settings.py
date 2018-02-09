@@ -109,5 +109,5 @@ DATABASE = {
     'port': url.port,
     'username': url.username,
     'password': url.password,
-    'database': 'sparkmodels'
+    'database': os.path.basename(url.path)
 }
