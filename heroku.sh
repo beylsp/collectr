@@ -1,3 +1,3 @@
 #!/bin/bash
-gunicorn app:app --daemon
+gunicorn collectr:app --daemon
 python collectr/crawler/worker.py
