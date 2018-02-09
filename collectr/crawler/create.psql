@@ -1,0 +1,9 @@
+-- sparkmodel table
+CREATE TABLE
+IF NOT EXISTS sparkmodel (
+id SERIAL PRIMARY KEY,
+product_id TEXT NOT NULL,
+image_url TEXT NOT NULL,
+title TEXT NOT NULL,
+in_collection BOOLEAN NOT NULL
+);
