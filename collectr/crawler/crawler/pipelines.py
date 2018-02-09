@@ -16,7 +16,7 @@ import settings
 class PgPipeline(object):
 
     @classmethod
-    def from_crawler(cls):
+    def from_crawler(cls, _):
         return cls()
 
     def open_spider(self, spider):

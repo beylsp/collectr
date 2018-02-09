@@ -24,6 +24,7 @@ jinja2==2.8               # via flask
 lxml==4.1.1               # via parsel, scrapy
 markupsafe==0.23          # via jinja2
 parsel==1.4.0             # via scrapy
+psycopg2==2.7.4
 pyasn1-modules==0.2.1     # via service-identity
 pyasn1==0.4.2             # via pyasn1-modules, service-identity
 pycparser==2.18           # via cffi

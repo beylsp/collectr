@@ -4,3 +4,4 @@ scrapy
 six
 rq
 sqlalchemy
+psycopg2
