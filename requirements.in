@@ -3,4 +3,4 @@ Flask-Script
 scrapy
 six
 rq
-
+sqlalchemy
