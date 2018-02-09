@@ -20,7 +20,7 @@ def create_app(config=None):
     app.add_template_filter(helper.pluralize)
 
     register_blueprints(app)
-    register_cli(app)
+    #register_cli(app)
     register_teardowns(app)
 
     return app

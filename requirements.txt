@@ -13,6 +13,7 @@ constantly==15.1.0        # via twisted
 cryptography==2.1.4       # via pyopenssl
 cssselect==1.0.3          # via parsel, scrapy
 enum34==1.1.6             # via cryptography, enum34
+flask-paginate==0.5.1
 flask-script==2.0.5
 flask==0.10.1
 gunicorn==19.7.1
