@@ -1,7 +1,9 @@
-from crawler.items import SparkModelItem
+import scrapy
+
 from scrapy.loader import ItemLoader
 from six.moves.urllib import parse
-import scrapy
+
+from collectr.service.crawl.items import SparkModelItem
 
 
 class SparkModelSpider(scrapy.Spider):

@@ -4,16 +4,16 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+import settings
 
-from database.models import SparkModelData
 from sqlalchemy import create_engine
 from sqlalchemy.engine.url import URL
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-import settings
+from collectr.db.models import SparkModelData
 
 
-class PgPipeline(object):
+class DbPipeline(object):
 
     @classmethod
     def from_crawler(cls, _):

@@ -1,4 +1,3 @@
-from sqlite3 import dbapi2 as sqlite3
 from flask import Blueprint
 from flask import jsonify
 from flask import g
@@ -6,44 +5,43 @@ from flask import render_template
 from flask import current_app
 from flask import request
 from flask_paginate import Pagination
+from sqlalchemy import asc
+from sqlalchemy import or_
+from sqlalchemy import create_engine
+from sqlalchemy.orm import scoped_session, sessionmaker
 
-bp = Blueprint('collectr', __name__)
+from collectr.db.models import SparkModelData
+
+bp = Blueprint('sm', __name__)
 
 
 def connect_db():
-    """Connects to the specific database."""
-    rv = sqlite3.connect(current_app.config['DATABASE'])
-    rv.row_factory = sqlite3.Row
-    return rv
-
-
-def init_db():
-    """Initializes the database."""
-    db = get_db()
-    with current_app.open_resource('schema.sql', mode='r') as f:
-        db.cursor().executescript(f.read())
-    db.commit()
+    engine = create_engine(current_app.config['SQLALCHEMY_DATABASE_URI'])
+    db = scoped_session(sessionmaker(autocommit=False,
+                                     autoflush=False,
+                                     bind=engine))
+    return db
 
 
 def get_db():
     """Opens a new database connection if there is none yet for the
     current application context.
     """
-    if not hasattr(g, 'sqlite_db'):
-        g.sqlite_db = connect_db()
-    return g.sqlite_db
+    if not hasattr(g, 'db'):
+        g.db = connect_db()
+    return g.db
 
 
 def get_total_entries(qs=''):
     db = get_db()
     if not qs:
-        cur = db.execute('SELECT * FROM sparkmodel')
+        result = db.query(SparkModelData).all()
     else:
         qs = '%%%s%%' % qs
-        cur = db.execute('SELECT * FROM sparkmodel '
-                         'WHERE upper(title) LIKE ? '
-                         'OR upper(product_id) LIKE ?', (qs, qs))
-    return len(cur.fetchall())
+        result = db.query(SparkModelData).filter(or_(
+                SparkModelData.title.ilike(qs),
+                SparkModelData.product_id.ilike(qs))).all()
+    return len(result)
 
 
 def get_entries_for_page(page):
@@ -51,29 +49,27 @@ def get_entries_for_page(page):
     limit = current_app.config['ENTRIES_PER_PAGE']
     offset = (page - 1) * limit
     db = get_db()
-    cur = db.execute('SELECT * FROM sparkmodel '
-                     'ORDER BY product_id ASC '
-                     'LIMIT ? OFFSET ?', (limit, offset))
-    return cur.fetchall()
+    result = db.query(SparkModelData).order_by(
+            asc(SparkModelData.product_id)).offset(offset).limit(limit).all()
+    return result
 
 
 def get_entries_in_collection():
     db = get_db()
-    cur = db.execute('SELECT * FROM sparkmodel '
-                     'WHERE in_collection = 1 '
-                     'ORDER BY product_id ASC ')
-    return cur.fetchall()
+    result = db.query(SparkModelData).filter(
+            SparkModelData.in_collection == 1).order_by(asc(SparkModelData.product_id)).all()
+    return result
+
 
 def get_qs_result_for_page(qs, page):
     limit = current_app.config['ENTRIES_PER_PAGE']
     offset = (page - 1) * limit
     db = get_db()
     qs = '%%%s%%' % qs
-    cur = db.execute('SELECT * FROM sparkmodel '
-                     'WHERE upper(title) LIKE ? OR upper(product_id) LIKE ? '
-                     'ORDER BY product_id ASC '
-                     'LIMIT ? OFFSET ?', (qs, qs, limit, offset))
-    return cur.fetchall()
+    result = db.query(SparkModelData).filter(or_(
+            SparkModelData.title.like(qs), SparkModelData.product_id.like(qs))).order_by(
+                    asc(SparkModelData.product_id)).limit(limit).offset(offset).all()
+    return result
 
 
 @bp.route('/')
@@ -108,12 +104,11 @@ def add_entry():
         result = 'error'
     else:
         db = get_db()
-        db.execute('UPDATE sparkmodel '
-                   'SET in_collection = ? '
-                   'WHERE product_id = ?', (True, product_id))
+        db.query(SparkModelData).filter(SparkModelData.product_id == product_id).update({'in_collection': True})
         db.commit()
         result = 'ok'
-    return jsonify(result)
+    print result
+    return jsonify(result=result)
 
 
 @bp.route('/delete/')
@@ -123,12 +118,10 @@ def delete_entry():
         result = 'error'
     else:
         db = get_db()
-        db.execute('UPDATE sparkmodel '
-                   'SET in_collection = ? '
-                   'WHERE product_id = ?', (False, product_id))
+        db.query(SparkModelData).filter(SparkModelData.product_id == product_id).update({'in_collection': False})
         db.commit()
         result = 'ok'
-    return jsonify(result)
+    return jsonify(result=result)
 
 
 @bp.route('/profile')

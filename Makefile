@@ -18,6 +18,7 @@ help:
 	@echo "install - install the package to the active Python's site-packages"
 	@echo "db - create new collectr database"
 	@echo "crawl - crawl sparkmodel.com and update collectr database"
+	@echo "run - launch development web server"
 
 clean: clean-build clean-pyc clean-test clean-doc
 
@@ -49,7 +50,7 @@ lint:
 	flake8 --max-complexity 10 *.py collectr docs tests
 
 test:
-	python setup.py test
+	nose2 -v
 
 test-doc:
 	sphinx-build -b html -d docs/_build/doctrees docs docs/_build/html
@@ -75,8 +76,8 @@ docs:
 	$(MAKE) -C docs clean
 	$(MAKE) -C docs html
 
-db:
-	make -C collectr/crawler db
-
 crawl:
-	make -C collectr/crawler crawl
+	make -C collectr/service crawl
+
+run:
+	python manage.py runserver -h 0.0.0.0 -p 5000 -d

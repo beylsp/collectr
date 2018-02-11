@@ -4,10 +4,10 @@
 #
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/items.html
-
-from scrapy.loader.processors import MapCompose
 import os
 import scrapy
+
+from scrapy.loader.processors import MapCompose
 
 
 def filter_id(value):

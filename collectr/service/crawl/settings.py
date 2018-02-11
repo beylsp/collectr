@@ -10,13 +10,14 @@
 #     http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
 #     http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
 import os
+
 from six.moves.urllib import parse
 
 
-BOT_NAME = 'crawler'
+BOT_NAME = 'sm-crawler'
 
-SPIDER_MODULES = ['crawler.spiders']
-NEWSPIDER_MODULE = 'crawler.spiders'
+SPIDER_MODULES = ['crawl.spiders']
+NEWSPIDER_MODULE = 'crawl.spiders'
 
 
 # Crawl responsibly by identifying yourself
@@ -71,7 +72,7 @@ TELNETCONSOLE_ENABLED = False
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'crawler.pipelines.PgPipeline': 100,
+    'crawl.pipelines.DbPipeline': 100,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -99,15 +100,23 @@ ITEM_PIPELINES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# Configure postgres database
-parse.uses_netloc.append('postgres')
-url = parse.urlparse(os.environ["DATABASE_URL"])
+# Configure database
+if os.getenv("DATABASE_URL"):
+    parse.uses_netloc.append('postgres')
+    url = parse.urlparse(os.environ["DATABASE_URL"])
 
-DATABASE = {
-    'drivername': 'postgres',
-    'host': url.hostname,
-    'port': url.port,
-    'username': url.username,
-    'password': url.password,
-    'database': os.path.basename(url.path)
-}
+    DATABASE = {
+        'drivername': 'postgres',
+        'host': url.hostname,
+        'port': url.port,
+        'username': url.username,
+        'password': url.password,
+        'database': os.path.basename(url.path)
+    }
+else:
+    dbfile = os.path.join('..', 'db', 'data', 'dev.sqlite.db') 
+
+    DATABASE = {
+        'drivername': 'sqlite',
+        'database': os.path.abspath(dbfile)
+    }

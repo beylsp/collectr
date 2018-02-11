@@ -1,8 +1,9 @@
 #!/usr/bin/env python
-"""Management script."""
+"""A simpke management script."""
 import os
+
 from flask_script import Manager
-from collectr.factory import create_app
+from collectr.web.factory import create_app
 
 if os.path.exists('.env'):
     for line in open('.env'):
@@ -10,8 +11,10 @@ if os.path.exists('.env'):
         if len(var) == 2:
             os.environ[var[0]] = var[1]
 
-app = create_app()
+
+app = create_app(os.getenv('CONFIG') or 'default')
 manager = Manager(app)
+
 
 if __name__ == '__main__':
     manager.run()
