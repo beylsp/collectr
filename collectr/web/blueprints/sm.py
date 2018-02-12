@@ -104,10 +104,9 @@ def add_entry():
         result = 'error'
     else:
         db = get_db()
-        db.query(SparkModelData).filter(SparkModelData.product_id == product_id).update({'in_collection': True})
+        db.query(SparkModelData).filter(SparkModelData.product_id == product_id).update({'in_collection': 1})
         db.commit()
         result = 'ok'
-    print result
     return jsonify(result=result)
 
 
@@ -118,7 +117,7 @@ def delete_entry():
         result = 'error'
     else:
         db = get_db()
-        db.query(SparkModelData).filter(SparkModelData.product_id == product_id).update({'in_collection': False})
+        db.query(SparkModelData).filter(SparkModelData.product_id == product_id).update({'in_collection': 0})
         db.commit()
         result = 'ok'
     return jsonify(result=result)

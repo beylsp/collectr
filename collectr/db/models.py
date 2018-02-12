@@ -11,10 +11,10 @@ class SparkModelData(Base):
     product_id = Column(String(8), unique=True)
     image_url = Column(String(1000))
     title = Column(String(1000))
-    in_collection = Column(Boolean, default=False)
+    in_collection = Column(Integer, default=0)
 
     def __init__(self, product_id=None, image_url=None,
-                 title=None, in_collection=False):
+                 title=None, in_collection=0):
         self.product_id = product_id
         self.image_url = image_url
         self.title = title
