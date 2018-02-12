@@ -1,2 +1,2 @@
-init: python collectr/db/create.py
+release: python collectr/db/create.py
 web: sh heroku.sh
