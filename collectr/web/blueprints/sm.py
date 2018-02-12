@@ -67,7 +67,8 @@ def get_qs_result_for_page(qs, page):
     db = get_db()
     qs = '%%%s%%' % qs
     result = db.query(SparkModelData).filter(or_(
-            SparkModelData.title.like(qs), SparkModelData.product_id.like(qs))).order_by(
+            SparkModelData.title.ilike(qs),
+            SparkModelData.product_id.ilike(qs))).order_by(
                     asc(SparkModelData.product_id)).limit(limit).offset(offset).all()
     return result
 
