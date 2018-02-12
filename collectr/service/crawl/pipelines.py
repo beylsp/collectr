@@ -36,7 +36,7 @@ class DbPipeline(object):
                 product_id=product_id,
                 image_url=image_url,
                 title=title,
-                in_collection=False)
+                in_collection=0)
             self.db.add(record)
         else:
             it.image_url = image_url
